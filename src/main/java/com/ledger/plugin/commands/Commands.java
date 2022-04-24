@@ -2,6 +2,10 @@ package com.ledger.plugin.commands;
 
 import com.ledger.Ledger;
 import com.ledger.api.services.SessionService;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -43,7 +47,18 @@ public class Commands implements CommandExecutor {
         String host = Ledger.getConfiguration().getString("server-url");
 
         String authId = SessionService.createAuthorization(player.getUniqueId().toString(), player.getName(), permissions);
-        player.sendMessage(ChatColor.YELLOW + "[Ledger] One-time login: " + ChatColor.RESET + ChatColor.AQUA + ChatColor.UNDERLINE + "http://" + host + "/sessions/" + authId);
+        String url = "http://" + host + "/sessions/" + authId;
+
+        TextComponent message = new TextComponent(ChatColor.GREEN + "[Ledger]: ");
+
+        TextComponent clickHere = new TextComponent(ChatColor.AQUA + "" + ChatColor.UNDERLINE + "click here");
+        clickHere.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, url));
+        clickHere.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(url).create()));
+
+        message.addExtra(clickHere);
+        message.addExtra(ChatColor.GREEN + " to login.");
+
+        player.sendMessage(message);
         return true;
     }
 

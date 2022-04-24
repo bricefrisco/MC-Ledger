@@ -1,5 +1,5 @@
 name: Ledger
-version: 1.0.0
+version: 1.0.1
 main: com.ledger.Ledger
 author: bfrisco
 description: Economy Metrics
