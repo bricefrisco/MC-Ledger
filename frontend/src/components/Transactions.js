@@ -168,7 +168,7 @@ const Transactions = ({ session, fetchWithAuth }) => {
                   key={idx}
                   idx={idx}
                   playerId={transaction.playerId}
-                  playerName={players["b0773db1-1ca3-44fc-9240-229d6e16a945"]}
+                  playerName={players[transaction.playerId]}
                   amount={transaction.amount}
                   timestamp={transaction.timestamp}
                   cause={transaction.cause}
