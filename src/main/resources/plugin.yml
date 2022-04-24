@@ -1,0 +1,11 @@
+name: Ledger
+version: 1.0.0
+main: com.ledger.Ledger
+author: bfrisco
+description: Economy Metrics
+api-version: 1.18
+
+commands:
+  ledger:
+    description: Generates a URL to view the site
+    usage: /ledger

@@ -1,0 +1,21 @@
+# Please don't change the version manually.
+version: 1
+
+# Can be the IP address of the server,
+# or a domain if you have one
+# Could be: example.com:7241, ledger.example.com:7241, ledger.example.com
+# Please do not include 'http' or 'www'
+server-url: 127.0.0.1:7241
+
+# Port the web app will run on. Must be opened
+# Ensure port matches with above (unless using domain mapping)
+port: 7241
+
+# How long you want to keep the transaction log, in days
+transaction-log-retention-days: 31
+
+# How long you want to keep player balance histories, in days
+player-balance-history-retention-days: 365
+
+# How long you want to keep the server balance history, in days
+server-balance-history-retention-days: 365
