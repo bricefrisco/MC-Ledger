@@ -1,5 +1,6 @@
 package com.ledger.api.database.repositories;
 
+import com.j256.ormlite.stmt.Where;
 import com.ledger.api.database.DaoCreator;
 import com.ledger.api.database.entities.TransactionLog;
 import com.ledger.api.dtos.TransactionsResponse;
@@ -34,15 +35,17 @@ public class TransactionLogRepository {
 
         try {
             QueryBuilder<TransactionLog, Long> qb = repository.queryBuilder();
+            Where<TransactionLog, Long> where = qb.where();
+
             if (playerId != null) {
-                qb.where().eq("playerId", playerId);
+                where.eq("playerId", playerId).and();
             }
 
             if (timestamp != null) {
                 if (ascending) {
-                    qb.where().gt("timestamp", timestamp);
+                    where.gt("timestamp", timestamp);
                 } else {
-                    qb.where().lt("timestamp", timestamp);
+                    where.lt("timestamp", timestamp);
                 }
             }
 

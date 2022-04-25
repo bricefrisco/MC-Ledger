@@ -57,7 +57,7 @@ const Transactions = ({ session, fetchWithAuth }) => {
     const url = new URL(process.env.REACT_APP_BACKEND_API + "/transactions");
     if (selectedPlayer && selectedPlayer !== "AP") {
       url.searchParams.append("playerId", selectedPlayer);
-    } else if (playerId) {
+    } else if (playerId && playerId !== "AP") {
       url.searchParams.append("playerId", playerId);
     }
 
