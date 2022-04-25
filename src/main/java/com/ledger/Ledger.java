@@ -119,7 +119,7 @@ public class Ledger extends JavaPlugin {
     }
 
     private void registerCommands() {
-        Objects.requireNonNull(getCommand("ledger")).setExecutor(new Commands());
+        Objects.requireNonNull(getCommand("ledger")).setExecutor(new Commands(this));
     }
 
     public static Logger getBukkitLogger() {

@@ -2,6 +2,7 @@ package com.ledger.api.database.repositories;
 
 import com.ledger.api.database.DaoCreator;
 import com.ledger.api.database.entities.PlayerBalance;
+import com.ledger.api.database.entities.PlayerBalanceHistory;
 import com.ledger.api.dtos.PlayerBalancesResponse;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
@@ -26,6 +27,19 @@ public class PlayerBalanceRepository {
             repository.createOrUpdate(playerBalance);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static String queryForUuid(String playerName) {
+        try {
+            QueryBuilder<PlayerBalance, String> qb = repository.queryBuilder();
+            qb.where().eq("playerName", playerName);
+            PlayerBalance pb = qb.queryForFirst();
+            if (pb == null) return null;
+            return pb.getPlayerId();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
