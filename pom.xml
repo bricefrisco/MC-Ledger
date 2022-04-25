@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.ledger</groupId>
     <artifactId>ledger</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <description>Server Economy Metrics</description>
     <name>Ledger</name>
 
