@@ -29,8 +29,8 @@ const Transactions = ({ session, fetchWithAuth }) => {
 
         for (const pid of res) {
           if (
-            !session.permissions.includes("ledger.player-charts.view-all") &&
-            session.pid !== pid
+            !session.permissions.includes("ledger.transactions.view-all") &&
+            session.playerId !== pid.id
           ) {
             continue;
           }
@@ -88,7 +88,7 @@ const Transactions = ({ session, fetchWithAuth }) => {
     if (
       !session ||
       (!session.permissions.includes("ledger.transactions.view-own") &&
-        !sessionStorage.permissions.includes("ledger.transactions.view-all"))
+        !session.permissions.includes("ledger.transactions.view-all"))
     ) {
       return;
     }
@@ -98,7 +98,7 @@ const Transactions = ({ session, fetchWithAuth }) => {
   if (
     !session ||
     (!session.permissions.includes("ledger.transactions.view-own") &&
-      !sessionStorage.permissions.includes("ledger.transactions.view-all"))
+      !session.permissions.includes("ledger.transactions.view-all"))
   ) {
     return <div className="unauthorized">Unauthorized to view this page.</div>;
   }

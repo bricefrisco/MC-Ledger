@@ -35,7 +35,7 @@ public class ServerBalanceHistoryRepository {
     public static void create(ServerBalanceHistory serverBalance) {
         try {
             ServerBalanceHistory last = getLast();
-            if (last == null || last.getBalance() == serverBalance.getBalance()) {
+            if (last == null || last.getBalance() != serverBalance.getBalance()) {
                 repository.create(serverBalance);
             }
         } catch (SQLException e) {

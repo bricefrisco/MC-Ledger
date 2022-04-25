@@ -47,7 +47,7 @@ const PlayerCharts = ({ session, fetchWithAuth }) => {
         for (const pid of res) {
           if (
             !session.permissions.includes("ledger.player-charts.view-all") &&
-            session.pid !== pid
+            session.playerId !== pid.id
           ) {
             continue;
           }
@@ -164,7 +164,7 @@ const PlayerCharts = ({ session, fetchWithAuth }) => {
         <Button
           variant="outlined"
           sx={{ maxHeight: "35px", fontWeight: "bold" }}
-          onClick={fetchBalances}
+          onClick={() => fetchBalances()}
         >
           Search
         </Button>
