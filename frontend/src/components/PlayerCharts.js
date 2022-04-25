@@ -60,9 +60,14 @@ const PlayerCharts = ({ session, fetchWithAuth }) => {
     );
   };
 
-  const fetchBalances = () => {
+  const fetchBalances = (uuid = undefined) => {
     const url = new URL(process.env.REACT_APP_BACKEND_API + "/players");
-    url.searchParams.append("uuid", selectedPlayer);
+    if (!uuid) {
+      url.searchParams.append("uuid", selectedPlayer);
+    } else {
+      url.searchParams.append("uuid", uuid);
+    }
+
     url.searchParams.append("month", month);
 
     fetchWithAuth(url).then((res) => {
@@ -90,9 +95,15 @@ const PlayerCharts = ({ session, fetchWithAuth }) => {
     ) {
       return;
     }
+
     fetchPlayerIds();
-    fetchBalances();
-  }, []);
+    if (!selectedPlayer) {
+      setSelectedPlayer(session.playerId);
+      fetchBalances(session.playerId);
+    } else {
+      fetchBalances();
+    }
+  }, [session]);
 
   if (
     !session ||

@@ -31,7 +31,7 @@ function useWindowDimensions() {
 
 const ServerChart = ({ session, fetchWithAuth }) => {
   const [data, setData] = useState();
-  const [month, setMonth] = useState(4);
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(2022);
   const { width, height } = useWindowDimensions();
 
@@ -63,7 +63,7 @@ const ServerChart = ({ session, fetchWithAuth }) => {
       return;
     }
     fetchServerBalance();
-  }, []);
+  }, [session]);
 
   if (!session || !session.permissions.includes("ledger.server-chart.view")) {
     return <div className="unauthorized">Unauthorized to view this page.</div>;

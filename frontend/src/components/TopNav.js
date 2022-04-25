@@ -37,8 +37,6 @@ const TopNav = ({ session }) => {
     setMenuAnchor(null);
   };
 
-  console.log("session:" + JSON.stringify(session));
-
   return (
     <div className="top-nav">
       <div className="logo-container">

@@ -30,7 +30,7 @@ const Balances = ({ session, fetchWithAuth }) => {
       return;
     }
     fetchPlayerBalances();
-  }, [page]);
+  }, [page, session]);
 
   if (!session || !session.permissions.includes("ledger.balances.view")) {
     return <div className="unauthorized">Unauthorized to view this page.</div>;

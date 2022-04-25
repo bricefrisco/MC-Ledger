@@ -24,6 +24,7 @@ const AuthProvider = ({ children }) => {
         return res.json();
       })
       .then((res) => {
+        sessionStorage.setItem("session", JSON.stringify(res));
         setSession(() => {
           history.push("/balances");
           return res;
@@ -56,7 +57,10 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (!session) {
-      if (isOnUnauthorizedRoute(location.pathname)) {
+      const sessionStrg = sessionStorage.getItem("session");
+      if (sessionStrg) {
+        setSession(JSON.parse(sessionStrg));
+      } else if (isOnUnauthorizedRoute(location.pathname)) {
         history.push("/login");
       } else if (location.pathname.startsWith("/sessions")) {
         const id = location.pathname.replace("/sessions/", "");

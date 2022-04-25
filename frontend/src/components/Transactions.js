@@ -43,7 +43,10 @@ const Transactions = ({ session, fetchWithAuth }) => {
     );
   };
 
-  const fetchTransactions = (searchButtonClicked = false) => {
+  const fetchTransactions = (
+    playerId = undefined,
+    searchButtonClicked = false
+  ) => {
     if (searchButtonClicked && page) {
       setPage(0);
       return;
@@ -52,6 +55,8 @@ const Transactions = ({ session, fetchWithAuth }) => {
     const url = new URL(process.env.REACT_APP_BACKEND_API + "/transactions");
     if (selectedPlayer && selectedPlayer !== "AP") {
       url.searchParams.append("playerId", selectedPlayer);
+    } else if (playerId) {
+      url.searchParams.append("playerId", playerId);
     }
 
     url.searchParams.append("page", page);
@@ -72,7 +77,12 @@ const Transactions = ({ session, fetchWithAuth }) => {
     document.title = "Ledger | Transactions";
     if (!session) return;
     fetchPlayerIds();
-  }, []);
+    if (!selectedPlayer) {
+      const uuid = getInitialSelectedPlayer();
+      setSelectedPlayer(uuid);
+      fetchTransactions(uuid);
+    }
+  }, [session]);
 
   useEffect(() => {
     if (
@@ -140,7 +150,7 @@ const Transactions = ({ session, fetchWithAuth }) => {
         <Button
           variant="outlined"
           sx={{ maxHeight: "35px", fontWeight: "bold" }}
-          onClick={() => fetchTransactions(true)}
+          onClick={() => fetchTransactions(undefined, true)}
         >
           Search
         </Button>
