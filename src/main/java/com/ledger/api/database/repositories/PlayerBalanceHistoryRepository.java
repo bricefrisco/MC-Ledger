@@ -22,7 +22,10 @@ public class PlayerBalanceHistoryRepository {
 
     public static void create(PlayerBalanceHistory playerBalanceHistory) {
         try {
-            repository.create(playerBalanceHistory);
+            PlayerBalanceHistory last = getLast(playerBalanceHistory.getPlayerId());
+            if (last == null || !last.getBalance().equals(playerBalanceHistory.getBalance())) {
+                repository.create(playerBalanceHistory);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
