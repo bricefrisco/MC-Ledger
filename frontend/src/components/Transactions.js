@@ -7,9 +7,11 @@ import InfiniteScroll from "react-infinite-scroll-component";
 const Transactions = ({ session, fetchWithAuth }) => {
   const getInitialSelectedPlayer = () => {
     if (!session) return "";
-    if (!session.permissions.includes("ledger.player-charts.view-all"))
+    if (session.permissions.includes("ledger.transactions.view-all")) {
+      return "AP";
+    } else {
       return session.playerId;
-    return "AP";
+    }
   };
 
   const [transactions, setTransactions] = useState();
