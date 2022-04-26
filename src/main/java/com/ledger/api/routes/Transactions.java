@@ -1,6 +1,5 @@
 package com.ledger.api.routes;
 
-import com.ledger.Ledger;
 import com.ledger.api.database.repositories.TransactionLogRepository;
 import com.ledger.api.dtos.TransactionsResponse;
 import com.ledger.api.dtos.Session;
@@ -73,7 +72,6 @@ public class Transactions implements HttpHandler {
 
         boolean ascending = "true".equalsIgnoreCase(params.get("ascending"));
 
-        Ledger.getBukkitLogger().info("Player ID: '" + playerId + '"');
         TransactionsResponse response = TransactionLogRepository.query(playerId, page, ascending, timestamp);
         HttpExchangeUtils.success(exchange, response);
     }
