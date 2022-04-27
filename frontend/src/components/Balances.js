@@ -16,7 +16,7 @@ const Balances = ({ session, fetchWithAuth }) => {
       if (!page) {
         setBalances(res.balances);
       } else {
-        setBalances([...balances, res.balances]);
+        setBalances([...balances, ...res.balances]);
       }
     });
   };
