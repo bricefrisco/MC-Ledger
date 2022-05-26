@@ -1,6 +1,10 @@
 package com.ledger.api;
 
 import com.ledger.Ledger;
+import com.ledger.api.database.repositories.PlayerBalanceRepository;
+import com.ledger.api.database.repositories.PlayerRepository;
+import com.ledger.api.database.repositories.ServerBalanceRepository;
+import com.ledger.api.database.repositories.TransactionRepository;
 import com.ledger.api.routes.*;
 import com.ledger.api.utils.ResourceRetriever;
 import java.io.IOException;
@@ -13,10 +17,21 @@ import java.util.concurrent.Executors;
  */
 public class HttpServer {
     private final com.sun.net.httpserver.HttpServer server;
+    private final PlayerRepository playerRepository;
+    private final PlayerBalanceRepository playerBalanceRepository;
+    private final ServerBalanceRepository serverBalanceRepository;
+    private final TransactionRepository transactionRepository;
 
-    public HttpServer() throws IOException {
+    public HttpServer(PlayerRepository playerRepository, PlayerBalanceRepository playerBalanceRepository,
+                      ServerBalanceRepository serverBalanceRepository, TransactionRepository transactionRepository)
+            throws IOException {
         int port = Ledger.getConfiguration().getInt("port");
         this.server = com.sun.net.httpserver.HttpServer.create(new InetSocketAddress(port), 0);
+
+        this.playerRepository = playerRepository;
+        this.playerBalanceRepository = playerBalanceRepository;
+        this.serverBalanceRepository = serverBalanceRepository;
+        this.transactionRepository = transactionRepository;
     }
 
     /**
@@ -24,7 +39,7 @@ public class HttpServer {
      */
     public void start() throws IOException, URISyntaxException {
         this.createFrontEndRoutes();
-        this.createRoutes();
+        this.createBackEndRoutes();
         this.server.setExecutor(Executors.newCachedThreadPool());
         this.server.start();
     }
@@ -62,12 +77,12 @@ public class HttpServer {
     /**
      * Creates back-end routes
      */
-    private void createRoutes() {
+    private void createBackEndRoutes() {
         server.createContext("/api/sessions", new Session());
-        server.createContext("/api/player-ids", new PlayerIds());
-        server.createContext("/api/transactions", new Transactions());
-        server.createContext("/api/balances", new PlayerBalance());
-        server.createContext("/api/players", new PlayerBalanceHistory());
-        server.createContext("/api/server", new ServerBalanceHistory());
+        server.createContext("/api/player-ids", new PlayerIds(playerRepository));
+        server.createContext("/api/transactions", new Transactions(transactionRepository));
+        server.createContext("/api/balances", new Player(playerRepository));
+        server.createContext("/api/players", new PlayerBalance(playerBalanceRepository, playerRepository, transactionRepository));
+        server.createContext("/api/server", new ServerBalance(serverBalanceRepository));
     }
 }

@@ -1,0 +1,82 @@
+.topNav {
+  background-color: rgb(34, 43, 54);
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topNavSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoImg {
+  width: 30px;
+  height: 30px;
+  margin-left: 15px;
+  margin-right: 7px;
+}
+
+.logoText {
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.5rem;
+  padding-right: 10px;
+  border-right: 2px solid white;
+}
+
+.currentPage {
+  font-weight: bold;
+  color: white;
+  font-size: 1.3rem;
+  padding-left: 10px;
+  letter-spacing: 0.3px;
+}
+
+.navItemContainer {
+  margin-right: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.navItem {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.navItem:hover {
+  text-decoration: underline;
+}
+
+.navItem:visited {
+  text-decoration: none;
+}
+
+.profileIcon {
+  margin-left: 15px;
+  margin-right: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profileMenu {
+  padding: 10px;
+  line-height: 1.35rem;
+}
+
+.loggedInAs {
+  display: block;
+  margin-bottom: 10px;
+}

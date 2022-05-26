@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./components/Login";
 import TopNav from "./components/TopNav";
@@ -27,39 +27,31 @@ export const App = () => {
                   <TopNav session={session} />
                   <Switch>
                     <Route exact path="/balances">
-                      <Balances
-                        session={session}
-                        fetchWithAuth={fetchWithAuth}
-                      />
+                      <Balances fetchWithAuth={fetchWithAuth} />
                     </Route>
 
                     <Route exact path="/transactions">
-                      <Transactions
-                        session={session}
-                        fetchWithAuth={fetchWithAuth}
-                      />
+                      <Transactions session={session} fetchWithAuth={fetchWithAuth} />
                     </Route>
 
                     <Route exact path="/player-charts">
-                      <PlayerCharts
-                        session={session}
-                        fetchWithAuth={fetchWithAuth}
-                      />
+                      <PlayerCharts session={session} fetchWithAuth={fetchWithAuth} />
                     </Route>
 
                     <Route exact path="/server-chart">
-                      <ServerChart
-                        session={session}
-                        fetchWithAuth={fetchWithAuth}
-                      />
+                      <ServerChart session={session} fetchWithAuth={fetchWithAuth} />
                     </Route>
 
-                    <Route exact path="/login">
+                    <Route path="/sessions">
+                      <Login />
+                    </Route>
+
+                    <Route path="/login">
                       <Login />
                     </Route>
 
                     <Route path="/">
-                      <Redirect to="/balances" />
+                      <Redirect to="/login" />
                     </Route>
                   </Switch>
                 </>

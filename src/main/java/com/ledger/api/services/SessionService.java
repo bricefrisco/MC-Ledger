@@ -2,7 +2,6 @@ package com.ledger.api.services;
 
 import com.ledger.api.dtos.Session;
 import com.sun.net.httpserver.HttpExchange;
-
 import javax.security.auth.login.CredentialException;
 import javax.security.auth.login.CredentialExpiredException;
 import javax.security.auth.login.CredentialNotFoundException;

@@ -76,7 +76,6 @@ const Transactions = ({ session, fetchWithAuth }) => {
   };
 
   useEffect(() => {
-    document.title = "Ledger | Transactions";
     if (!session) return;
     fetchPlayerIds();
     if (!selectedPlayer) {

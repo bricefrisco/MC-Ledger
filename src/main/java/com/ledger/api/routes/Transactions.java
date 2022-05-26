@@ -1,6 +1,6 @@
 package com.ledger.api.routes;
 
-import com.ledger.api.database.repositories.TransactionLogRepository;
+import com.ledger.api.database.repositories.TransactionRepository;
 import com.ledger.api.dtos.TransactionsResponse;
 import com.ledger.api.dtos.Session;
 import com.ledger.api.services.SessionService;
@@ -11,6 +11,12 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Transactions implements HttpHandler {
+    private final TransactionRepository repository;
+
+    public Transactions(TransactionRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         HttpExchangeUtils.setCorsHeaders(exchange);
@@ -72,7 +78,7 @@ public class Transactions implements HttpHandler {
 
         boolean ascending = "true".equalsIgnoreCase(params.get("ascending"));
 
-        TransactionsResponse response = TransactionLogRepository.query(playerId, page, ascending, timestamp);
+        TransactionsResponse response = repository.query(playerId, page, ascending, timestamp);
         HttpExchangeUtils.success(exchange, response);
     }
 }

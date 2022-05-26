@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 
 const Login = () => {
-  useEffect(() => {
-    document.title = "Ledger | Login";
-  }, []);
-
   return (
     <div style={{ padding: 15 }}>
       <span

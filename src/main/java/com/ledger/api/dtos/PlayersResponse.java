@@ -1,16 +1,15 @@
 package com.ledger.api.dtos;
 
-import com.ledger.api.database.entities.PlayerBalance;
-
+import com.ledger.api.database.entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerBalancesResponse {
-    private List<PlayerBalance> balances;
+public class PlayersResponse {
+    private List<Player> balances;
     private long totalCount;
     private long pageSize;
 
-    public List<PlayerBalance> getBalances() {
+    public List<Player> getBalances() {
         if (balances == null) {
             balances = new ArrayList<>();
         }
@@ -26,7 +25,7 @@ public class PlayerBalancesResponse {
         return pageSize;
     }
 
-    public void setBalances(List<PlayerBalance> balances) {
+    public void setBalances(List<Player> balances) {
         this.balances = balances;
     }
 

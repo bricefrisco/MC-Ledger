@@ -1,12 +1,10 @@
 package com.ledger.api.database.entities;
 
-import com.ledger.api.database.DatabaseFileName;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "transaction_log")
-@DatabaseFileName("transaction_log.db")
-public class TransactionLog {
+@DatabaseTable(tableName = "transactions")
+public class Transaction {
     @DatabaseField(index = true)
     private String playerId;
 

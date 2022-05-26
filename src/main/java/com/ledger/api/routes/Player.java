@@ -1,15 +1,21 @@
 package com.ledger.api.routes;
 
-import com.ledger.api.database.repositories.ServerBalanceHistoryRepository;
+import com.ledger.api.database.repositories.PlayerRepository;
+import com.ledger.api.dtos.PlayersResponse;
 import com.ledger.api.services.SessionService;
 import com.ledger.api.utils.HttpExchangeUtils;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 
-public class ServerBalanceHistory implements HttpHandler {
+public class Player implements HttpHandler {
+    private final PlayerRepository repository;
+
+    public Player(PlayerRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         HttpExchangeUtils.setCorsHeaders(exchange);
@@ -24,36 +30,25 @@ public class ServerBalanceHistory implements HttpHandler {
             return;
         }
 
-        if (!SessionService.hasPermission(exchange, "ledger.server-chart.view")) {
+        if (!SessionService.hasPermission(exchange, "ledger.balances.view")) {
             HttpExchangeUtils.unauthorized(exchange);
             return;
         }
 
         Map<String, String> params = HttpExchangeUtils.parseQueryParams(exchange);
 
-        Integer month = null;
+        int page = 0;
         try {
-            String pageStr = params.get("month");
+            String pageStr = params.get("page");
             if (pageStr != null && !pageStr.isBlank()) {
-                month = Integer.parseInt(pageStr);
+                page = Integer.parseInt(pageStr);
             }
         } catch (Exception e) {
             HttpExchangeUtils.badRequest(exchange, "Could not parse page parameter");
             return;
         }
 
-        if (month == null || month < 1 || month > 12) {
-            HttpExchangeUtils.badRequest(exchange, "Parameter month required between values 1 and 12");
-            return;
-        }
-
-        ArrayList<Object> histories = new ArrayList<>();
-        for (com.ledger.api.database.entities.ServerBalanceHistory history : ServerBalanceHistoryRepository.query(month)) {
-            histories.add(history.getTimestamp());
-            histories.add(history.getNumberOfPlayersTracked());
-            histories.add(history.getBalance());
-        }
-
-        HttpExchangeUtils.success(exchange, histories);
+        PlayersResponse balances = repository.query(page);
+        HttpExchangeUtils.success(exchange, balances);
     }
 }

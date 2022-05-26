@@ -1,16 +1,15 @@
 package com.ledger.api.dtos;
 
-import com.ledger.api.database.entities.TransactionLog;
-
+import com.ledger.api.database.entities.Transaction;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionsResponse {
-    private List<TransactionLog> transactions;
+    private List<Transaction> transactions;
     private long totalCount;
     private long pageSize;
 
-    public List<TransactionLog> getTransactions() {
+    public List<Transaction> getTransactions() {
         if (transactions == null) {
             transactions = new ArrayList<>();
         }
@@ -25,7 +24,7 @@ public class TransactionsResponse {
         return pageSize;
     }
 
-    public void setTransactions(List<TransactionLog> transactions) {
+    public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 

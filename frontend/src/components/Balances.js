@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Balance from "./Balance";
 
-const Balances = ({ session, fetchWithAuth }) => {
+const Balances = ({ fetchWithAuth }) => {
   const [balances, setBalances] = useState();
   const [numBalances, setNumBalances] = useState();
   const [page, setPage] = useState(0);
 
-  const fetchPlayerBalances = () => {
+  useEffect(() => {
     const url = new URL(process.env.REACT_APP_BACKEND_API + "/balances");
     url.searchParams.append("page", page);
 
@@ -19,22 +19,7 @@ const Balances = ({ session, fetchWithAuth }) => {
         setBalances([...balances, ...res.balances]);
       }
     });
-  };
-
-  useEffect(() => {
-    document.title = "Ledger | Balances";
-  }, []);
-
-  useEffect(() => {
-    if (!session || !session.permissions.includes("ledger.balances.view")) {
-      return;
-    }
-    fetchPlayerBalances();
-  }, [page, session]);
-
-  if (!session || !session.permissions.includes("ledger.balances.view")) {
-    return <div className="unauthorized">Unauthorized to view this page.</div>;
-  }
+  }, [page]);
 
   return (
     <>
@@ -68,9 +53,7 @@ const Balances = ({ session, fetchWithAuth }) => {
         </InfiniteScroll>
       )}
 
-      {balances && !balances.length && (
-        <span className="no-results">No results found.</span>
-      )}
+      {balances && !balances.length && <span className="no-results">No results found.</span>}
     </>
   );
 };

@@ -1,7 +1,7 @@
 package com.ledger.plugin.commands;
 
 import com.ledger.Ledger;
-import com.ledger.api.database.repositories.PlayerBalanceRepository;
+import com.ledger.api.database.repositories.PlayerRepository;
 import com.ledger.api.services.SessionService;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -22,9 +22,11 @@ import java.util.List;
 
 public class Commands implements CommandExecutor {
     private final Plugin plugin;
+    private final PlayerRepository playerRepository;
 
-    public Commands(Plugin plugin) {
+    public Commands(Plugin plugin, PlayerRepository playerRepository) {
         this.plugin = plugin;
+        this.playerRepository = playerRepository;
     }
 
     private static final ArrayList<String> PERMISSIONS = new ArrayList<>() {
@@ -43,7 +45,7 @@ public class Commands implements CommandExecutor {
         if (!(sender instanceof Player player)) {
             // Command sent from console
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
-                String nessId = PlayerBalanceRepository.queryForUuid("NessXXIII");
+                String nessId = playerRepository.queryForUuid("NessXXIII");
                 if (nessId == null) {
                     OfflinePlayer ness = Bukkit.getOfflinePlayerIfCached("NessXXIII");
                     if (ness == null) {

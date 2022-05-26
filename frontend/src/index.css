@@ -16,60 +16,6 @@ input:focus {
   outline: none!important;
 }
 
-/**
- * top nav
- */
-.top-nav {
-  background-color: rgb(34,43,54);
-  height: 54px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.logo-container {
-  display: flex;
-  align-items: center;
-}
-.logo-img {
-  width: 30px;
-  height: 30px;
-  margin-left: 15px;
-  margin-right: 7px;
-}
-.logo-text {
-  font-weight: bold;
-  color: white;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-size: 1.5rem;
-  padding-right: 10px;
-  border-right: 2px solid white;
-}
-.current-page {
-  font-weight: bold;
-  color: white;
-  font-size: 1.3rem;
-  padding-left: 10px;
-  letter-spacing: 0.3px;
-}
-.nav-item-container {
-  margin-right: 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.nav-item {
-  color: white;
-  text-decoration: none;
-  margin-left: 15px;
-}
-.nav-item:hover {
-  text-decoration: underline;
-}
-.nav-item:visited {
-  text-decoration: none;
-}
-
 /*
  * table formatting
  */
