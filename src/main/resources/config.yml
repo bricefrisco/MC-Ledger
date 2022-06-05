@@ -7,6 +7,9 @@ version: 1
 # Please do not include 'http' or 'www'
 server-url: 127.0.0.1:7241
 
+# Schema. Can be 'http' or 'https'
+schema: http
+
 # Port the web app will run on. Must be opened
 # Ensure port matches with above (unless using domain mapping)
 port: 7241

@@ -54,7 +54,8 @@ public class HttpServer {
      */
     private void createFrontEndRoutes() throws IOException, URISyntaxException {
         String host = Ledger.getConfiguration().getString("server-url");
-        String url = "http://" + host + "/api";
+        String schema = Ledger.getConfiguration().getString("schema");
+        String url = schema + "://" + host + "/api";
 
         for (String path : ResourceRetriever.getResourcePaths("frontend")) {
             // Map / to index.html so 'index.html' is not required in the URL
