@@ -11,6 +11,7 @@ import java.nio.charset.StandardCharsets;
  * Index.html, javascript, css files, images, and other static assets.
  */
 public class FileRoute implements HttpHandler {
+    private final String fileName;
     private final String contentType;
     private final String contents;
     private final byte[] byteContents;
@@ -20,6 +21,7 @@ public class FileRoute implements HttpHandler {
      * @param contents the contents of the file
      */
     public FileRoute(String fileName, String contents, byte[] byteContents) {
+        this.fileName = fileName;
         this.contentType = URLConnection.guessContentTypeFromName(fileName);
         this.contents = contents;
         this.byteContents = byteContents;
@@ -29,6 +31,8 @@ public class FileRoute implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
         if (this.contentType != null) {
             t.getResponseHeaders().set("Content-Type", this.contentType);
+        } else if (fileName.endsWith(".css")) {
+            t.getResponseHeaders().set("Content-Type", "text/css");
         }
 
         t.getResponseHeaders().set("Access-Control-Allow-Headers", "*");
